@@ -1,0 +1,51 @@
+=====================
+Sentence Tokenization
+=====================
+
+>>> from nltk import tokenize
+>>> para = "Hello. My name is Jacob. Today you'll be learning NLTK."
+>>> sents = tokenize.sent_tokenize(para)
+>>> sents
+['Hello.', 'My name is Diksha.', "learning NLTK."]
+
+=================
+Word Tokenization
+=================
+
+>>> sent = tokenize.word_tokenize(sents[2])
+>>> sent
+['Today', 'you', "'ll", 'be', 'learning', 'NLTK', '.']
+
+
+===========
+POS Tagging
+===========
+
+>>> from nltk import tag
+>>> tagged_sent = tag.pos_tag(sent)
+>>> tagged_sent
+[('Today', 'NN'), ('you', 'PRP'), ("'ll", 'MD'), ('be', 'VB'), ('learning', 'VBG'), ('NLTK', 'NNP'), ('.', '.')]
+
+see http://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
+for a list of treebank POS tags
+
+===========
+NE Chunking
+===========
+
+>>> from nltk import chunk
+>>> tree = chunk.ne_chunk(tagged_sent)
+>>> tree
+Tree('S', [('Today', 'NN'), ('you', 'PRP'), ("'ll", 'MD'), ('be', 'VB'), ('learning', 'VBG'), Tree('ORGANIZATION', [('NLTK', 'NNP')]), ('.', '.')])
+>>> tree.draw()
+
+===============
+Treebank Corpus
+===============
+
+>>> from nltk.corpus import treebank_chunk
+>>> treebank_chunk.tagged_sents()[0]
+[('Pierre', 'NNP'), ('Vinken', 'NNP'), (',', ','), ('61', 'CD'), ('years', 'NNS'), ('old', 'JJ'), (',', ','), ('will', 'MD'), ('join', 'VB'), ('the', 'DT'), ('board', 'NN'), ('as', 'IN'), ('a', 'DT'), ('nonexecutive', 'JJ'), ('director', 'NN'), ('Nov.', 'NNP'), ('29', 'CD'), ('.', '.')]
+>>> treebank_chunk.chunked_sents()[0]
+Tree('S', [Tree('NP', [('Pierre', 'NNP'), ('Vinken', 'NNP')]), (',', ','), Tree('NP', [('61', 'CD'), ('years', 'NNS')]), ('old', 'JJ'), (',', ','), ('will', 'MD'), ('join', 'VB'), Tree('NP', [('the', 'DT'), ('board', 'NN')]), ('as', 'IN'), Tree('NP', [('a', 'DT'), ('nonexecutive', 'JJ'), ('director', 'NN'), ('Nov.', 'NNP'), ('29', 'CD')]), ('.', '.')])
+>>> treebank_chunk.chunked_sents()[0].draw()
